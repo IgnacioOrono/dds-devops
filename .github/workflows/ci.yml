@@ -68,3 +68,9 @@ jobs:
 
       - name: Publicar imagen en Docker Hub
         run: docker push --all-tags ${{ steps.image.outputs.dockerhub }}
+
+      - name: Desplegar en Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK"
